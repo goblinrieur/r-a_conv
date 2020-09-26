@@ -22,3 +22,9 @@ isnum? next number ? 154 CLIV ok
 bye
 👨francois@💻zaphod🐙:~/GITLAB/dev/dev_gforht_r-a-conv$
 ```
+
+# want to play all projects at once 
+
+you can get sources (menu.sh) & run it from a container docker as you wish
+
+https://hub.docker.com/r/francoispussault/gforthgadgets
