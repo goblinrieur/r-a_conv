@@ -25,15 +25,15 @@ does>
 	begin
 		over over
 		while
-		c@ dup (arabic) rot <>
-		while
-		r> over r> over over 
-		> if 
-			2* negate + 
-		else 
-			drop 
-		then 
-		+ swap >r >r 1 /string
+		c@ dup (arabic) 
+		rot <> while
+			r> over r> over 
+			over > if 
+				2* negate + 
+			else 
+				drop 
+			then 
+			+ swap >r >r 1 /string
 	repeat then drop 2drop r> r> drop
 	. \ immediate display of result 
 ;
@@ -46,6 +46,7 @@ create romans 73 c, 86 c, 88 c, 76 c, 67 c, 68 c, 77 c,
 variable column# ( current-offset )
 \ check char by char where to go 
 
+( helpers )
 : ones
 	0 column# !
 ;
@@ -118,24 +119,42 @@ variable column# ( current-offset )
 			ones		digit
 ;
 
-: bootmessage
-	500 ms 
+: bootmessage	\ help to user
 	page
 	cr
 	s" convert arabic > roman numbers : 	14   >roman" type cr
-	s" convert roman > arabic numbers :	s“ XIV “ >arabic " type cr \ careful on ”“ char for string display
+	s" convert roman > arabic numbers :	XIV  >arabic" type cr 
 	s" convert with auto-detection    : 	isnum? " type cr
-	s" type bye at ok prompt to exit" cr cr 
 ;
 
 : isnum? 
 	." next number ? "
-	pad dup 6 accept 2dup \ ask for an user input
-	s>number?  IF 
+	pad dup 6 accept 2dup 	\ ask for an user input
+	s>number?  IF 		\ already an integer ? convert to roman
 		swap >roman 
-	ELSE   
+	ELSE  			\ we can suppose it is a string so try to convert it to arabic  
 		2drop >arabic
 	THEN 
 ; 
 
-bootmessage
+: again? ( [char] q -- )
+	BEGIN
+		cr ." again ? "	\ user might quit in many ways even ctrl-C
+		key case
+			[char] q of cr cr bye endof
+			[char] Q of cr cr bye endof
+			[char] n of cr cr bye endof
+			[char] N of cr cr bye endof
+		endcase
+	until
+;
+
+: main ( -- ) 
+	begin
+		bootmessage
+		isnum? 
+		again?		\ loop or not as a user choice.
+	again
+;
+
+main
