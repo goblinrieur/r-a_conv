@@ -8,14 +8,16 @@ roman to arabic &amp; reverse number converter functions demo
 redefined bootmessage
 
 convert arabic > roman numbers :        14   >roman
-convert roman > arabic numbers :        s“ XIV “ >arabic
+convert roman > arabic numbers :        s“ XIV “ >arabic 
+convert with auto-detection    :        isnum? 
 
 
 Gforth 0.7.3, Copyright (C) 1995-2008 Free Software Foundation, Inc.
 Gforth comes with ABSOLUTELY NO WARRANTY; for details type `license'
 Type `bye' to exit
-14   >roman XIV ok
-s" XIV" >arabic  14  ok
+isnum? next number ? 52 LII ok
+isnum? next number ? LIV 54  ok
+isnum? next number ? 154 CLIV ok
   ok
 bye
 👨francois@💻zaphod🐙:~/GITLAB/dev/dev_gforht_r-a-conv$

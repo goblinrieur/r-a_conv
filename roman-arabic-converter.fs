@@ -124,7 +124,18 @@ variable column# ( current-offset )
 	cr
 	s" convert arabic > roman numbers : 	14   >roman" type cr
 	s" convert roman > arabic numbers :	s“ XIV “ >arabic " type cr \ careful on ”“ char for string display
+	s" convert with auto-detection    : 	isnum? " type cr
 	s" type bye at ok prompt to exit" cr cr 
 ;
+
+: isnum? 
+	." next number ? "
+	pad dup 6 accept 2dup \ ask for an user input
+	s>number?  IF 
+		swap >roman 
+	ELSE   
+		2drop >arabic
+	THEN 
+; 
 
 bootmessage
