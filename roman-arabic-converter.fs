@@ -1,4 +1,4 @@
-#! /usr/local/bin/gforth-fast
+#! /usr/local/bin/gforth-fast-fast
 create (arabic)
 	1000 128 * char M + ,
 	500 128 * char D + ,
@@ -9,7 +9,7 @@ create (arabic)
 	1 128 * char I + ,
 does>
 	7 cells bounds do
-		i @ over over 
+		i @ 2dup 
 		127 and = if 
 			nip 7 rshift leave 
 		else 
@@ -23,7 +23,7 @@ does>
 : >arabic
 	0 dup >r >r
 	begin
-		over over
+		2dup
 		while
 		c@ dup (arabic) 
 		rot <> while
@@ -122,9 +122,8 @@ variable column# ( current-offset )
 : bootmessage	\ help to user
 	page
 	cr
-	s" convert arabic > roman numbers : 	14   >roman" type cr
-	s" convert roman > arabic numbers :	XIV  >arabic" type cr 
-	s" convert with auto-detection    : 	isnum? " type cr
+	s" convert arabic > roman numbers : 	14 becomes XIV" type cr
+	s" convert roman > arabic numbers :	XIV becomes 14" type cr 
 ;
 
 : isnum? 
@@ -138,7 +137,6 @@ variable column# ( current-offset )
 ; 
 
 : again? ( [char] q -- )
-	BEGIN
 		cr ." again ? "	\ user might quit in many ways even ctrl-C
 		key case
 			[char] q of cr cr bye endof
@@ -146,7 +144,6 @@ variable column# ( current-offset )
 			[char] n of cr cr bye endof
 			[char] N of cr cr bye endof
 		endcase
-	until
 ;
 
 : main ( -- ) 
