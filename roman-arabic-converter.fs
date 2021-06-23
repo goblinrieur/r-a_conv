@@ -18,7 +18,7 @@ does>
 		1 cells 
 	+loop dup
 ;
-\ here we have arabic convertion table
+\ here we have Arabic conversion table
  
 : >arabic
 	0 dup >r >r
@@ -37,11 +37,11 @@ does>
 	repeat then drop 2drop r> r> drop
 	. \ immediate display of result 
 ;
-\ original >arabic function comes from rosetta code site.
+\ original >arabic function comes from Rosetta code site.
 \ here starts my own work : 
  
 create romans 73 c, 86 c, 88 c, 76 c, 67 c, 68 c, 77 c,
-\ here we go with a table of romans numbers chars
+\ here we go with a table of Romans numbers chars
 
 variable column# ( current-offset )
 \ check char by char where to go 
@@ -122,8 +122,8 @@ variable column# ( current-offset )
 : bootmessage	\ help to user
 	page
 	cr
-	s" convert arabic > roman numbers : 	14 becomes XIV" type cr
-	s" convert roman > arabic numbers :	XIV becomes 14" type cr 
+	s" convert Arabic > roman numbers : 	14 becomes XIV" type cr
+	s" convert roman > Arabic numbers :	XIV becomes 14" type cr 
 ;
 
 : isnum? 
@@ -131,7 +131,7 @@ variable column# ( current-offset )
 	pad dup 6 accept 2dup 	\ ask for an user input
 	s>number?  IF 		\ already an integer ? convert to roman
 		swap >roman 
-	ELSE  			\ we can suppose it is a string so try to convert it to arabic  
+	ELSE  			\ we can suppose it is a string so try to convert it to Arabic  
 		2drop >arabic
 	THEN 
 ; 
